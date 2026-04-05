@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f1218" />
+    <title>大港開唱 · 時刻表</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1 id="fest-name">大港開唱 · 時刻表</h1>
+      <p class="meta" id="fest-meta">高雄駁二藝術特區</p>
+      <p class="notice" id="app-notice">
+        完整時段（不含大樹下舞台）＋點名可載入官網介紹。時刻第三方整理：
+        <a href="https://festtimetable.com/en-US/events/megaport-2026" target="_blank" rel="noopener">festtimetable</a>
+        ；請以
+        <a id="notice-timetable-img" href="https://megaportfest.com/wp-content/uploads/2026/03/2026TimeTable-CN-03041700-scaled.jpg" target="_blank" rel="noopener">官方時刻大圖</a>
+        ／
+        <a href="https://megaportfest.com/timetable/" target="_blank" rel="noopener">官網時刻表</a>
+        為準。
+      </p>
+    </header>
+
+    <div class="day-tabs" id="day-tabs" role="tablist" aria-label="選擇日期"></div>
+
+    <div class="stages-wrap">
+      <div class="stages-scroll" id="stages-root" aria-live="polite"></div>
+    </div>
+
+    <footer class="site-footer">
+      <span id="fest-source"></span>
+    </footer>
+
+    <div
+      class="modal-backdrop"
+      id="modal-backdrop"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-bio"
+      >
+        <div class="modal-inner">
+          <div class="modal-header">
+            <div>
+              <h2 id="modal-title"></h2>
+              <p class="modal-meta" id="modal-meta"></p>
+            </div>
+            <button type="button" class="modal-close" id="modal-close" aria-label="關閉">
+              ×
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="modal-bio"></p>
+            <p class="modal-artist-link-wrap" id="modal-artist-link-wrap" hidden>
+              <a id="modal-artist-link" href="#" target="_blank" rel="noopener noreferrer">開啟官網藝人頁</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="schedule-full.js"></script>
+    <script src="bio-loader.js"></script>
+    <script>
+      (function () {
+        var d = window.MEGAPORT_DATA;
+        if (!d || !d.festival) return;
+        document.getElementById("fest-name").textContent = d.festival.name + " · 時刻表";
+        document.getElementById("fest-meta").textContent = d.festival.venue;
+        var img = d.festival.timetableImageUrl;
+        if (img) {
+          var a = document.getElementById("notice-timetable-img");
+          if (a) a.href = img;
+        }
+        var src = document.getElementById("fest-source");
+        var al = d.festival.artistsListUrl || "";
+        var fs = window.MEGAPORT_FULL_SCHEDULE;
+        var note = fs && fs.scheduleSource ? fs.scheduleSource + " " : "";
+        src.innerHTML =
+          note +
+          '© <a href="' +
+          d.festival.sourceUrl +
+          '" target="_blank" rel="noopener">官方時刻表</a>、<a href="' +
+          al +
+          '" target="_blank" rel="noopener">所有藝人</a>、<a href="https://festtimetable.com/en-US/events/megaport-2026" target="_blank" rel="noopener">festtimetable</a>';
+      })();
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>

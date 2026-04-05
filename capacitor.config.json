@@ -1,0 +1,8 @@
+{
+  "appId": "tw.megaport.timetable",
+  "appName": "大港開唱時刻表",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

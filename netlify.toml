@@ -1,0 +1,7 @@
+# Netlify：連結 Git 後 Build command / Publish directory 也可在網頁後台設定
+[build]
+  command = "npm run build"
+  publish = "www"
+
+[build.environment]
+  NODE_VERSION = "20"
