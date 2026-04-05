@@ -1,10 +1,11 @@
-# GitHub Pages：推送 main 後自動把 www/ 發佈到 gh-pages 分支
-# 首次請到 Repo → Settings → Pages → Build and deployment → Source 選「GitHub Actions」
+# GitHub Pages：推送 main 後建置 www/ 並由 Actions 部署
+# 首次：Repo → Settings → Pages → Source 選「GitHub Actions」
 name: Deploy GitHub Pages
 
 on:
   push:
     branches: [main, master]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -20,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -39,4 +42,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
